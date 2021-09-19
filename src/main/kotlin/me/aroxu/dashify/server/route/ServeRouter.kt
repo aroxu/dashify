@@ -22,6 +22,12 @@ fun Application.routeConfig() {
         } else null
     }
 
+    install(CORS) {
+        method(HttpMethod.Get)
+        header("Dashify-Auth-Key")
+        header(HttpHeaders.AccessControlAllowOrigin)
+        anyHost()
+    }
     install(ContentNegotiation) {
         jackson {
             enable(SerializationFeature.INDENT_OUTPUT)
