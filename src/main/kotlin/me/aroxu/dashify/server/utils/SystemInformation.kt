@@ -1,7 +1,7 @@
 package me.aroxu.dashify.server.utils
 
 import java.lang.management.ManagementFactory
-import com.sun.management.OperatingSystemMXBean;
+import com.sun.management.OperatingSystemMXBean
 import kotlin.math.round
 
 object SystemInformation {
@@ -24,8 +24,8 @@ object SystemInformation {
             (Runtime.getRuntime().totalMemory() - Runtime.getRuntime().freeMemory())
         val maxJvmHeapSize = Runtime.getRuntime().maxMemory()
 
-        val maxPhysicalRamSize = operatingSystemMXBean.totalPhysicalMemorySize
-        val freePhysicalRamSize = operatingSystemMXBean.freePhysicalMemorySize
+        val maxPhysicalRamSize = operatingSystemMXBean.totalMemorySize
+        val freePhysicalRamSize = operatingSystemMXBean.freeMemorySize
         val usedPhysicalRamSize = maxPhysicalRamSize - freePhysicalRamSize
 
         val maxVirtualRamSize = operatingSystemMXBean.totalSwapSpaceSize

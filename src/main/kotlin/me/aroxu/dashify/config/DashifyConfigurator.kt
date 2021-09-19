@@ -1,12 +1,14 @@
 package me.aroxu.dashify.config
 
 import at.favre.lib.crypto.bcrypt.BCrypt
-import me.aroxu.dashify.DashifyPlugin.Companion.plugin
+import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
+import me.aroxu.dashify.DashifyPlugin.Companion.plugin
 import me.aroxu.dashify.authKey
-import me.aroxu.dashify.server.DashifyServer
+import me.aroxu.dashify.server.checkIsServerRunning
+import me.aroxu.dashify.server.restart
 import java.io.File
 
 @Serializable
@@ -24,12 +26,13 @@ object DashifyConfigurator {
         val string = json.encodeToString(AuthenticationKey.serializer(), AuthenticationKey(hashed))
         saveToFile(string)
         authKey = hashed
-        if (!DashifyServer.checkIsServerRunning()) {
-            DashifyServer.restart()
+        if (!checkIsServerRunning()) {
+            restart()
         }
         return authKey
     }
 
+    @ExperimentalSerializationApi
     fun getAuthKey(): String {
         val jsonData = loadFromFile()
         val json = Json { ignoreUnknownKeys = true }
@@ -45,6 +48,7 @@ object DashifyConfigurator {
         destinationFile.writeText(jsonData)
     }
 
+    @ExperimentalSerializationApi
     private fun loadFromFile(): String {
         val destinationFile = File(plugin.dataFolder, "config.json")
         if (!destinationFile.exists()) {

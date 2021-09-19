@@ -1,9 +1,11 @@
 package me.aroxu.dashify
 
-import com.github.monun.kommand.kommand
+import io.github.monun.kommand.kommand
+import kotlinx.serialization.ExperimentalSerializationApi
 import me.aroxu.dashify.command.Dashify
 import me.aroxu.dashify.config.DashifyConfigurator
-import me.aroxu.dashify.server.DashifyServer
+import me.aroxu.dashify.server.start
+import me.aroxu.dashify.server.stop
 import org.bukkit.plugin.java.JavaPlugin
 
 /**
@@ -21,6 +23,7 @@ class DashifyPlugin : JavaPlugin() {
             private set
     }
 
+    @ExperimentalSerializationApi
     override fun onEnable() {
         plugin = this
         version = description.version
@@ -37,13 +40,13 @@ class DashifyPlugin : JavaPlugin() {
             logger.warning("Dashify server won't start until the key is changed.")
             return
         }
-        DashifyServer.start()
+        start()
         logger.info("Started Dashify Server.")
     }
 
     override fun onDisable() {
         logger.info("Disabled Dashify v$version.")
-        DashifyServer.stop()
+        stop()
         logger.info("Stopped Dashify Server.")
     }
 }
