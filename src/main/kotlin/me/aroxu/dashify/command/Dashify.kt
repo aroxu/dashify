@@ -19,7 +19,12 @@ object Dashify {
                     executes {
                         val key: String by it
                         if (key.length < 8) {
-                            plugin.server.consoleSender.sendMessage(text("Please enter a password of 8 digits or longer!", NamedTextColor.RED))
+                            plugin.server.consoleSender.sendMessage(
+                                text(
+                                    "Please enter a password of 8 digits or longer!",
+                                    NamedTextColor.RED
+                                )
+                            )
                             return@executes
                         }
                         val numberIncluded = key.filter { keyValue -> keyValue.isDigit() }
@@ -32,8 +37,19 @@ object Dashify {
                             return@executes
                         }
                         plugin.server.consoleSender.sendMessage(text("Updating Access Key...", NamedTextColor.GRAY))
-                        plugin.server.consoleSender.sendMessage(text("Your Access key is: \"${DashifyConfigurator.updateAuthKey(key)}\".").decorate(TextDecoration.BOLD))
-                        plugin.server.consoleSender.sendMessage(text("DO NOT SHARE THIS KEY.").decorate(TextDecoration.BOLD).decorate(TextDecoration.UNDERLINED))
+                        plugin.server.consoleSender.sendMessage(
+                            text(
+                                "Your Access key is: \"${
+                                    DashifyConfigurator.updateAuthKey(
+                                        key
+                                    )
+                                }\"."
+                            ).decorate(TextDecoration.BOLD)
+                        )
+                        plugin.server.consoleSender.sendMessage(
+                            text("DO NOT SHARE THIS KEY.").decorate(TextDecoration.BOLD)
+                                .decorate(TextDecoration.UNDERLINED)
+                        )
                         plugin.server.consoleSender.sendMessage(text("Access Key Updated!", NamedTextColor.AQUA))
                     }
                 }
